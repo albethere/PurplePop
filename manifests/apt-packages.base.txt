@@ -1,0 +1,63 @@
+# Core utilities
+build-essential
+git
+curl
+wget
+ca-certificates
+binutils            
+libimage-exiftool-perl
+file
+lsof
+strace
+ltrace
+jq
+moreutils
+dnsutils
+fd-find
+ripgrep
+btop
+htop
+fastfetch
+tmux
+zip
+unzip
+p7zip-full
+net-tools
+traceroute
+mtr-tiny
+
+# Shell and terminal
+zsh
+fonts-powerline
+fzf
+
+# Networking and remote access
+openssh-client
+sshpass
+openvpn
+wireguard-tools
+freerdp2-x11
+cifs-utils
+samba-common-bin
+adb
+fastboot
+
+# Programming / scripting
+python3
+python3-venv
+python3-pip
+golang
+nodejs
+npm
+
+# Container stack
+docker.io
+docker-compose-plugin
+uidmap
+
+# Misc system
+udisks2
+gvfs-backends
+rsync
+parted
+gparted

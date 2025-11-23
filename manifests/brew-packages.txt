@@ -1,0 +1,7 @@
+# Example brew tools
+watchman
+fzf
+git-delta
+gh
+bat
+fastfetch

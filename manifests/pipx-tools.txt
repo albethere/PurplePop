@@ -1,0 +1,19 @@
+# Security / recon
+impacket
+crackmapexec           # or use its upstream install instructions
+responder
+mitm6
+kerbrute
+
+# Data handling
+httpx
+dnsx
+uvicorn
+rich-cli
+
+# Your mentioned tool
+wtfis
+
+# DFIR helpers
+mftdump
+evtx_dump

@@ -1,0 +1,16 @@
+sleuthkit
+autopsy
+plaso-tools           # log2timeline; name may differ, adjust to repo
+foremost
+bulk-extractor
+testdisk
+ddrescue
+hashdeep
+scalpel
+ewf-tools             # E01 support
+xmount
+libesedb-tools
+libpff-tools
+liblnk-tools
+regripper             # may be in repo or installed from upstream
+hfsprogs

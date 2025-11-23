@@ -1,0 +1,25 @@
+# Network investigation
+wireshark
+tshark
+tcpdump
+nmap
+masscan
+whois
+arp-scan
+
+# Web / proxy
+mitmproxy
+
+# Auth / directory
+ldap-utils
+rpcbind
+nbtscan
+smbclient
+
+# Misc sec tools
+hydra
+medusa
+john
+hashcat
+wfuzz
+dnsenum

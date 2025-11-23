@@ -1,0 +1,39 @@
+# Display manager
+lightdm
+lightdm-gtk-greeter
+
+# XFCE desktop environment
+xfce4
+xfce4-goodies
+xfce4-terminal
+thunar
+thunar-archive-plugin
+xfce4-whiskermenu-plugin
+
+# Sway + Wayland stack
+sway
+swaylock
+swayidle
+waybar
+wofi
+grim
+slurp
+wl-clipboard
+xwayland
+alacritty
+
+# GUI helpers
+network-manager
+network-manager-gnome
+blueman
+pavucontrol
+pulseaudio
+pipewire
+pipewire-pulse
+lxappearance
+gnome-keyring
+
+# Editors &  utilities
+code                 # VS Code from apt repo, or use MS repo / .deb
+filezilla
+remmina
