@@ -1,0 +1,44 @@
+name: Build PurplePop ISO
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch: {}
+
+jobs:
+  build-iso:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            squashfs-tools xorriso bsdtar p7zip-full curl
+
+      - name: Make build scripts executable
+        run: |
+          chmod +x scripts/*.sh
+          chmod -R +x scripts/helpers || true
+          chmod -R +x image/filesystem-hooks || true
+
+      - name: Build PurplePop ISO
+        run: |
+          sudo ./scripts/build-iso.sh
+
+      - name: List build outputs
+        run: |
+          ls -R .
+          ls -R out || echo "No out/ directory found"
+
+      - name: Upload ISO artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: purplepop-iso
+          path: out/*.iso
+          if-no-files-found: error

@@ -20,7 +20,7 @@ grim
 slurp
 wl-clipboard
 xwayland
-alacritty
+
 
 # GUI helpers
 network-manager
@@ -28,6 +28,7 @@ network-manager-gnome
 blueman
 pavucontrol
 pulseaudio
+pulseaudio-utils
 pipewire
 pipewire-pulse
 lxappearance

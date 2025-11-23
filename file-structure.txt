@@ -1,0 +1,103 @@
+PurplePop/
+├── README.md
+├── LICENSE
+├── .gitignore
+│
+├── manifests/
+│   ├── apt-packages.base.txt          # core system, zsh, binutils/strings, exiftool, etc
+│   ├── apt-packages.gui.txt           # Sway + XFCE + Waveterm + GUI helpers
+│   ├── apt-packages.dfir.txt          # sleuthkit, plaso, etc
+│   ├── apt-packages.netsec.txt        # wireshark, nmap, etc
+│   ├── pipx-tools.txt                 # Python CLIs like impacket, wtfis, etc
+│   ├── brew-packages.txt              # optional: Linuxbrew tools
+│   └── flatpak-apps.txt               # optional: GUI apps (Obsidian, etc)
+│
+├── image/                             # Pop!_OS live image customization bits
+│   ├── base-popos.yaml                # metadata: Pop!_OS version, ISO URL, checksums
+│   ├── filesystem-hooks/              # scripts run inside chroot/custom root
+│   │   ├── 10-install-packages.sh
+│   │   ├── 20-configure-users.sh
+│   │   ├── 30-desktop-setup.sh        # Sway + XFCE + Waveterm configuration
+│   │   └── 40-cleanup.sh
+│   ├── overlay/                       # files copied directly into the live FS
+│   │   ├── etc/
+│   │   │   └── skel/
+│   │   │       ├── .zshrc
+│   │   │       ├── .config/
+│   │   │       │   ├── sway/config
+│   │   │       │   ├── waybar/config
+│   │   │       │   ├── waybar/style.css
+│   │   │       │   ├── xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+│   │   │       │   ├── xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+│   │   │       │   └── waveterm/waveterm.json
+│   │   └── usr/local/bin/
+│   │       ├── netquick.sh
+│   │       └── dfir-quick.sh
+│   └── config/
+│       ├── bootloader.conf            # Pop!_OS/systemd-boot or GRUB tweaks
+│       └── popos-live.yaml            # any extra metadata you want
+│
+├── dotfiles/
+│   ├── zsh/
+│   │   ├── .zshrc
+│   │   ├── aliases.zsh
+│   │   └── prompt.zsh
+│   ├── sway/
+│   │   ├── config
+│   │   └── keybindings.md
+│   ├── waybar/
+│   │   ├── config
+│   │   └── style.css
+│   ├── xfce/
+│   │   ├── xfce4-panel.xml
+│   │   ├── xfce4-desktop.xml
+│   │   └── terminalrc
+│   ├── waveterm/
+│   │   ├── waveterm.json
+│   │   └── profiles/
+│   │       └── default.json
+│   └── git/
+│       └── .gitconfig
+│
+├── scripts/
+│   ├── build-image.sh                 # main script: build PurplePop Pop!_OS image
+│   ├── download-base.sh               # fetch Pop!_OS ISO, verify checksum
+│   ├── create-chroot.sh               # prepare chroot/custom root FS
+│   ├── apply-overlays.sh              # sync image/overlay and dotfiles into chroot
+│   ├── install-tooling.sh             # run manifests & install packages
+│   ├── install-waveterm.sh            # fetch Waveterm AppImage / .deb
+│   ├── finalize-image.sh              # squashfs creation, ISO or image packaging
+│   ├── flash-usb.sh                   # helper to burn image to USB
+│   └── ci-check.sh                    # lightweight checks for CI (linting, etc)
+│
+├── docker/
+│   ├── docker-compose.yml             # top-level enabling profiles: bloodhound, cyberchef, etc
+│   ├── bloodhound/
+│   │   ├── docker-compose.yml
+│   │   └── .env.example
+│   ├── cyberchef/
+│   │   └── docker-compose.yml
+│   ├── neo4j/
+│   │   └── docker-compose.yml
+│   └── portainer/
+│       └── docker-compose.yml
+│
+├── dfir-playbooks/
+│   ├── windows-artifacts.md
+│   ├── macos-artifacts.md
+│   ├── linux-artifacts.md
+│   └── quickcheck-cheatsheet.md
+│
+├── config/
+│   ├── users.yml                      # live user, default shell zsh, etc
+│   ├── sudoers.d/
+│   │   └── purplepop-live
+│   ├── network/
+│   │   ├── netplan.yaml
+│   │   └── hosts
+│   └── motd/
+│       └── 10-purplepop
+│
+└── .github/
+    └── workflows/
+        └── build-purplepop.yml        # GitHub Actions workflow

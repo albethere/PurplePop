@@ -5,3 +5,8 @@ git-delta
 gh
 bat
 fastfetch
+waveterm
+visual-studio-code
+obsidian
+1password-cli
+powershell
