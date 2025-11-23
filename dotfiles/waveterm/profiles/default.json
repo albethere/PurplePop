@@ -1,0 +1,32 @@
+{
+  "id": "default",
+  "name": "Default",
+  "command": "zsh",
+  "workingDirectory": "~",
+  "env": {
+    "TERM": "xterm-256color"
+  },
+  "colors": {
+    "background": "#11111b",
+    "foreground": "#cdd6f4",
+    "cursor": "#f5c2e7",
+    "palette": [
+      "#1e1e2e",
+      "#f38ba8",
+      "#a6e3a1",
+      "#f9e2af",
+      "#89b4fa",
+      "#f5c2e7",
+      "#94e2d5",
+      "#cdd6f4",
+      "#45475a",
+      "#f38ba8",
+      "#a6e3a1",
+      "#f9e2af",
+      "#89b4fa",
+      "#f5c2e7",
+      "#94e2d5",
+      "#ffffff"
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "theme": "PurplePop",
+  "fontFamily": "JetBrains Mono",
+  "fontSize": 13,
+  "cursorStyle": "block",
+  "cursorBlink": true,
+  "renderer": "gpu",
+  "scrollbackLines": 10000,
+  "bell": "none",
+  "profiles": [
+    {
+      "name": "default",
+      "id": "default",
+      "command": "zsh",
+      "workingDirectory": "~",
+      "env": {
+        "TERM": "xterm-256color"
+      }
+    }
+  ],
+  "defaultProfileId": "default"
+}

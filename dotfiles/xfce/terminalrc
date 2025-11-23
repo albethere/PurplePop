@@ -1,0 +1,21 @@
+[Configuration]
+ColorForeground=#cdd6f4
+ColorBackground=#11111b
+ColorCursor=#f5c2e7
+ColorPalette=#1e1e2e;#f38ba8;#a6e3a1;#f9e2af;#89b4fa;#f5c2e7;#94e2d5;#cdd6f4;#45475a;#f38ba8;#a6e3a1;#f9e2af;#89b4fa;#f5c2e7;#94e2d5;#ffffff
+FontName=JetBrains Mono 11
+ScrollingOnOutput=FALSE
+ScrollingLines=10000
+MiscAlwaysShowTabs=FALSE
+MiscToolbarDefault=FALSE
+MiscBell=FALSE
+MiscMenubarDefault=FALSE
+MiscBordersDefault=TRUE
+MiscCursorBlinks=FALSE
+MiscMouseWheelZoom=TRUE
+MiscDefaultGeometry=120x32
+MiscInheritGeometry=FALSE
+MiscCycleTabs=TRUE
+MiscTabCloseButtons=TRUE
+MiscToolbarStyle=0
+MiscConfirmClose=FALSE
