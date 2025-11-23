@@ -23,7 +23,11 @@ CHROOT_DIR="${BUILD_DIR}/chroot"
 # 4. Apply overlays (dotfiles, configs, custom scripts)
 "${PROJECT_ROOT}/scripts/apply-overlays.sh" "${CHROOT_DIR}"
 
-# 5. Any final chroot customizations can go here
+
+# 5. Configure live user + LightDM sessions (Sway/XFCE)
+"${PROJECT_ROOT}/image/filesystem-hooks/20-configure-users.sh" "${CHROOT_DIR}"
+
+# x. Any final chroot customizations can go here
 # e.g. create default user, enable services, etc.
 # "${PROJECT_ROOT}/image/filesystem-hooks/30-desktop-setup.sh" "${CHROOT_DIR}"
 

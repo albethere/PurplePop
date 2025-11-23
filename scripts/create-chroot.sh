@@ -1,11 +1,48 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROJECT_ROOT="$(cd "$(dirname "${BASHOURCE[0]}")/.." && pwd)" 2>/dev/null || \
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)" 2>/dev/null || \
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 BUILD_DIR="${PROJECT_ROOT}/.build"
 BASE_DIR="${BUILD_DIR}/base"
-ISO_PATH="${BASE_DIR}/pop-os_22.04_amd64.iso"
+METADATA_PATH="${PROJECT_ROOT}/image/base-popos.yaml"
+
+ISO_FILENAME=$(python - <<'PY'
+import pathlib
+import sys
+
+metadata_path = pathlib.Path("${METADATA_PATH}")
+
+if not metadata_path.exists():
+    print(f"[!] Metadata file not found: {metadata_path}", file=sys.stderr)
+    sys.exit(1)
+
+def parse_simple_yaml(path: pathlib.Path):
+    data = {}
+    for raw_line in path.read_text().splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith('#'):
+            continue
+        if ':' not in line:
+            continue
+        key, value = line.split(':', 1)
+        key = key.strip()
+        value = value.strip()
+        if value.startswith('"') and value.endswith('"'):
+            value = value[1:-1]
+        data[key] = value
+    return data
+
+data = parse_simple_yaml(metadata_path)
+filename = data.get("filename", "").strip()
+if not filename:
+    print("[!] ISO filename missing from metadata.", file=sys.stderr)
+    sys.exit(1)
+
+print(filename)
+PY
+) || exit 1
+ISO_PATH="${BASE_DIR}/${ISO_FILENAME}"
 
 ISO_DIR="${BUILD_DIR}/iso-root"
 CHROOT_DIR="${BUILD_DIR}/chroot"
@@ -30,12 +67,3 @@ fi
 echo "[*] Unsquashing root filesystem into ${CHROOT_DIR}..."
 rm -rf "${CHROOT_DIR:?}"/*
 unsquashfs -f -d "${CHROOT_DIR}" "${ISO_DIR}/casper/filesystem.squashfs"
-
-echo "[*] Binding system dirs into chroot..."
-mount --bind /dev "${CHROOT_DIR}/dev"
-mount --bind /dev/pts "${CHROOT_DIR}/dev/pts"
-mount -t proc /proc "${CHROOT_DIR}/proc"
-mount -t sysfs /sys "${CHROOT_DIR}/sys"
-mount -t tmpfs tmpfs "${CHROOT_DIR}/run"
-
-echo "[*] Chroot is ready at ${CHROOT_DIR}"
