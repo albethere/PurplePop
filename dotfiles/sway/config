@@ -1,28 +1,170 @@
-# Use Super as main mod
+### PurplePop Sway config ########################################
+# Primary WM: Sway
+# Fallback DE: XFCE (lightdm session)
+##################################################################
+
 set $mod Mod4
+set $term sh -c 'command -v waveterm >/dev/null 2>&1 && waveterm'
+set $menu wofi --show drun
+
+### Output & Appearance ##########################################
+
+# Set a simple solid background (wallpaper can be layered later)
+output * bg #11111b solid_color
+
+# Use a slightly larger font for clarity on unknown displays
+font pango:JetBrains Mono 11
+
+# Gaps and borders
+gaps inner 5
+gaps outer 5
+default_border pixel 2
+default_floating_border pixel 2
+
+# Enable mouse-focused window switching
+focus_follows_mouse yes
+
+### Autostart ####################################################
+
+exec_always waybar
+exec_always nm-applet
+exec_always blueman-applet
+exec_always pavucontrol --hide-slider || true
+
+# Idle handling (simple, non-opinionated)
+exec_always swayidle -w \
+    timeout 600 'swaylock -f -c 000000' \
+    timeout 1200 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+    before-sleep 'swaylock -f -c 000000'
+
+### Input devices ################################################
+
+input * {
+    xkb_layout us
+    xkb_options caps:escape
+    repeat_rate 35
+    repeat_delay 250
+}
+
+### Workspaces ###################################################
+
+set $ws1 "1 "
+set $ws2 "2 "
+set $ws3 "3 "
+set $ws4 "4 "
+set $ws5 "5 "
+set $ws6 "6 "
+set $ws7 "7 "
+set $ws8 "8 "
+set $ws9 "9 "
+set $ws10 "10 "
+
+workspace 1 output *
+workspace 2 output *
+workspace 3 output *
+workspace 4 output *
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+### Launchers ####################################################
 
 # Terminal
-set $term alacritty
-
-# Launchers
 bindsym $mod+Return exec $term
-bindsym $mod+d exec wofi --show drun
 
-# Basic movement
+# App launcher
+bindsym $mod+d exec $menu
+
+# Browser (Pop!_OS typically has Firefox preinstalled)
+bindsym $mod+b exec firefox
+
+# File manager
+bindsym $mod+e exec thunar
+
+# Lock screen
+bindsym $mod+Shift+l exec swaylock -f -c 000000
+
+### Window focus & movement ######################################
+
+# Directional focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# Workspaces 1-10
-set $ws1 "1"
-set $ws2 "2"
-...
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
+# Directional movement
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Splits
+bindsym $mod+v split v
+bindsym $mod+Shift+v split h
+
+# Layout toggles
+bindsym $mod+f fullscreen toggle
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Floating toggle
+bindsym $mod+Shift+space floating toggle
+
+# Focus parent
+bindsym $mod+a focus parent
+
+### Screenshots ##################################################
+
+# Screenshot of entire screen
+bindsym Print exec grim ~/Pictures/screenshot-$(date +'%Y%m%d-%H%M%S').png
+
+# Screenshot of selection
+bindsym Shift+Print exec slurp | grim -g - ~/Pictures/screenshot-$(date +'%Y%m%d-%H%M%S').png
+
+### Audio & Brightness ###########################################
+
+bindsym XF86AudioRaiseVolume exec pamixer -i 5
+bindsym XF86AudioLowerVolume exec pamixer -d 5
+bindsym XF86AudioMute        exec pamixer -t
+
+bindsym XF86MonBrightnessUp   exec brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+
+### System controls ##############################################
 
 # Exit Sway
-bindsym $mod+Shift+e exec "swaymsg exit"
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit PurplePop Sway session?' \
+    -b 'Yes, exit' 'swaymsg exit'
 
-# Output configuration (auto)
-output * bg #000000 solid_color
+# Reload Sway config
+bindsym $mod+Shift+c reload
+
+# Restart Sway (preserve layout)
+bindsym $mod+Ctrl+r restart
+
+### XFCE fallback hint ###########################################
+# XFCE is configured and available via LightDM.
+# If Sway misbehaves on a machine, log out and choose XFCE session at login.
+##################################################################

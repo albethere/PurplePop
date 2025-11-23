@@ -1,0 +1,74 @@
+/* PurplePop Waybar theme */
+
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "JetBrains Mono", "FiraCode Nerd Font", monospace;
+  font-size: 11pt;
+  min-height: 0;
+}
+
+window#waybar {
+  background: #11111b;
+  color: #cdd6f4;
+  border-bottom: 1px solid #313244;
+}
+
+#workspaces button {
+  padding: 0 6px;
+  margin: 0 2px;
+  background: transparent;
+  color: #a6adc8;
+}
+
+#workspaces button.focused {
+  background: #313244;
+  color: #f5c2e7;
+  border-radius: 6px;
+}
+
+#workspaces button.urgent {
+  background: #f38ba8;
+  color: #11111b;
+  border-radius: 6px;
+}
+
+#mode {
+  margin-left: 6px;
+  padding: 0 6px;
+  background: #b4befe;
+  color: #11111b;
+  border-radius: 6px;
+}
+
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#battery,
+#tray,
+#clock {
+  padding: 0 8px;
+  margin: 0 2px;
+  background: #181825;
+  border-radius: 6px;
+}
+
+#network.disconnected {
+  background: #f38ba8;
+  color: #11111b;
+}
+
+#battery.warning {
+  background: #fab387;
+  color: #11111b;
+}
+
+#battery.critical {
+  background: #f38ba8;
+  color: #11111b;
+}
+
+#clock {
+  font-weight: 500;
+}
