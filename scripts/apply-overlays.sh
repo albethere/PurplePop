@@ -82,7 +82,7 @@ fi
 # Git config
 if [ -f "${DOTFILES_DIR}/git/.gitconfig" ]; then
   install -Dm644 "${DOTFILES_DIR}/git/.gitconfig" "${SKEL}/.gitconfig"
-endif
+fi
 
 # ------------------------------------------------------------------------------
 # Permissions for tools installed into /usr/local/bin inside chroot
