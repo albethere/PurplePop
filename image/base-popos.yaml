@@ -1,6 +1,5 @@
 # Metadata for the stock Pop!_OS image we customize.
-# Currently consumed manually by scripts/download-base.sh.
-# When scripting matures we can parse these values instead of hardcoding.
+# Consumed by helper scripts to download and unpack the base ISO.
 version: "22.04"
 arch: "amd64"
 filename: "pop-os_22.04_amd64.iso"

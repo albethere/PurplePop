@@ -7,6 +7,13 @@ if [ "$#" -ne 1 ]; then
 fi
 
 ROOT="$1"
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+# shellcheck source=lib/chroot.sh
+source "${PROJECT_ROOT}/scripts/lib/chroot.sh"
+
+mount_chroot_binds "${ROOT}"
+trap 'teardown_chroot_binds "${ROOT}"' EXIT
 
 run_chroot() {
   chroot "${ROOT}" /usr/bin/env bash -c "$*"

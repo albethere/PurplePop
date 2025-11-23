@@ -6,17 +6,16 @@ BUILD_DIR="${PROJECT_ROOT}/.build"
 ISO_DIR="${BUILD_DIR}/iso-root"
 CHROOT_DIR="${BUILD_DIR}/chroot"
 
+# shellcheck source=lib/chroot.sh
+source "${PROJECT_ROOT}/scripts/lib/chroot.sh"
+
 if [ ! -d "${ISO_DIR}" ] || [ ! -d "${CHROOT_DIR}" ]; then
   echo "[!] ISO root or chroot directory missing."
   exit 1
 fi
 
 echo "[*] Unmounting chroot bind mounts..."
-for mnt in dev/pts dev proc sys run; do
-  if mountpoint -q "${CHROOT_DIR}/${mnt}"; then
-    umount "${CHROOT_DIR}/${mnt}"
-  fi
-done
+teardown_chroot_binds "${CHROOT_DIR}"
 
 echo "[*] Rebuilding filesystem.squashfs..."
 rm -f "${ISO_DIR}/casper/filesystem.squashfs"
